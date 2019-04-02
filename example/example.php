@@ -26,6 +26,9 @@ $jsonSchema ='{
             "minimum": 18,
             "maximum": 100
         },
+        "test": {
+            "const": "test"
+        },
         "email": {
             "type": "string",
             "maxLength": 128,
@@ -94,11 +97,12 @@ $jsonSchema ='{
 
 $data = '{
     "name": "J",
-    "age": 5,
+    "age": "zzz",
+    "test": "lol",
     "email": "johnbb",
     "website": null,
     "location": {
-        "country": "US",
+        "country": "UA",
         "address": "Sesame Street, no. 5"
     },
     "available_for_hire": true,

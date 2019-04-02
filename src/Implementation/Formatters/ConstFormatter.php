@@ -1,20 +1,23 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts\MessageFormatter;
 
-class FormatFormatter implements MessageFormatter
+class ConstFormatter implements MessageFormatter
 {
-    private const MESSAGE = "Attribute should match ':format:' format.";
+    private const MESSAGE = "Attribute value expected to be ':expected:'.";
 
     public function format(ValidationError $error): string
     {
-        $format = $error->keywordArgs()['format'] ?? null;
-        $replacements = $format ? [':format:' => $format] : [];
+        $expected = $error->keywordArgs()['expected'];
+
+        $replacements = [
+            ':expected:' => $expected
+        ];
 
         return strtr(self::MESSAGE, $replacements);
     }
