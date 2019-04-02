@@ -12,7 +12,7 @@ interface Keyword
     public const CONST = 'const';
 
     // Numeric Instances
-    public const MULTIPLY_OF = 'multiplyOf';
+    public const MULTIPLE_OF = 'multipleOf';
     public const MAXIMUM = 'maximum';
     public const EXCLUSIVE_MAXIMUM = 'exclusiveMaximum';
     public const MINIMUM = 'minimum';

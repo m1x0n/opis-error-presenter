@@ -8,7 +8,7 @@ use OpisErrorPresenter\Contracts\MessageFormatter;
 
 class EnumFormatter implements MessageFormatter
 {
-    private const MESSAGE = 'Attribute must be one of the following values: :expected:';
+    private const MESSAGE = 'The attribute must be one of the following values: :expected:.';
 
     public function format(ValidationError $error): string
     {

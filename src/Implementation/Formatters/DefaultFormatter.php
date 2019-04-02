@@ -8,7 +8,7 @@ use OpisErrorPresenter\Contracts\MessageFormatter;
 
 class DefaultFormatter implements MessageFormatter
 {
-    private const MESSAGE = 'Attribute is invalid.';
+    private const MESSAGE = 'The attribute is invalid.';
 
     public function format(ValidationError $error): string
     {

@@ -9,7 +9,7 @@ use OpisErrorPresenter\Contracts\MessageFormatter;
 
 class ConstFormatter implements MessageFormatter
 {
-    private const MESSAGE = "Attribute value expected to be ':expected:'.";
+    private const MESSAGE = "The attribute value expected to be ':expected:'.";
 
     public function format(ValidationError $error): string
     {

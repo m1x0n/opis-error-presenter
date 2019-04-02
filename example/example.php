@@ -24,7 +24,7 @@ $jsonSchema ='{
         "age": {
             "type": "integer",
             "minimum": 18,
-            "maximum": 100
+            "exclusiveMaximum": 100
         },
         "test": {
             "const": "test"
@@ -97,7 +97,7 @@ $jsonSchema ='{
 
 $data = '{
     "name": "J",
-    "age": "zzz",
+    "age": 101,
     "test": "lol",
     "email": "johnbb",
     "website": null,
@@ -122,7 +122,7 @@ $data = '{
         },
         {
             "name": "JavaScript",
-            "value": 75
+            "value": 75.3
         }
     ]
 }';
