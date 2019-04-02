@@ -23,7 +23,9 @@ class MessageFormatterFactory
         Keyword::MINIMUM => Formatters\MinimumFormatter::class,
         Keyword::EXCLUSIVE_MINIMUM => Formatters\ExclusiveMinimumFormatter::class,
 
-
+        Keyword::MAX_LENGTH => Formatters\MaxLengthFormatter::class,
+        Keyword::MIN_LENGTH => Formatters\MinLengthFormatter::class,
+        Keyword::PATTERN => Formatters\PatternFormatter::class,
     ];
 
     public function create(ValidationError $error): MessageFormatter

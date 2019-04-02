@@ -32,6 +32,7 @@ $jsonSchema ='{
         "email": {
             "type": "string",
             "maxLength": 128,
+            "minLength": 3,
             "format": "email"
         },
         "website": {
@@ -96,10 +97,10 @@ $jsonSchema ='{
 }';
 
 $data = '{
-    "name": "J",
+    "name": "J***",
     "age": 101,
     "test": "lol",
-    "email": "johnbb",
+    "email": "aa",
     "website": null,
     "location": {
         "country": "UA",
