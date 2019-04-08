@@ -24,21 +24,22 @@ interface Keyword
     public const PATTERN = 'pattern';
 
     // Arrays
-    public const ITEMS = 'items'; // WEAK
+    public const ITEMS = 'items'; // WEAK?
     public const ADDITIONAL_ITEMS = 'additionalItems';
     public const MAX_ITEMS = 'maxItems';
     public const MIN_ITEMS = 'minItems';
     public const UNIQUE_ITEMS = 'uniqueItems';
-    public const CONTAINS = 'contains'; // WEAK
+    public const CONTAINS = 'contains'; // WEAK?
 
     // Objects
     public const MAX_PROPERTIES = 'maxProperties';
     public const MIN_PROPERTIES = 'minProperties';
     public const REQUIRED = 'required';
-    public const PROPERTIES = 'properties';
+    public const PROPERTIES = 'properties'; // WEAK?
     public const PATTERN_PROPERTIES = 'patternProperties';
     public const DEPENDENCIES = 'dependencies';
     public const PROPERTY_NAMES = 'propertyNames';
+    public const ADDITIONAL_PROPERTIES = 'additionalProperties';
 
     // Conditional subschemas
     public const IF = 'if';
@@ -53,4 +54,14 @@ interface Keyword
 
     // Format validation
     public const FORMAT = 'format';
+
+    // Weak keywords
+    public const WEAK_KEYWORDS = [
+        self::ITEMS,
+        self::CONTAINS,
+        self::PROPERTIES,
+        self::ALL_OF,
+        self::ANY_OF.
+        self::ONE_OF,
+    ];
 }

@@ -28,6 +28,7 @@ class MessageFormatterFactory
         Keyword::PATTERN => Formatters\PatternFormatter::class,
 
         Keyword::ITEMS => Formatters\ItemsFormatter::class,
+        Keyword::ADDITIONAL_ITEMS => Formatters\AdditionalItemsFormatter::class,
         Keyword::MIN_ITEMS => Formatters\MinItemsFormatter::class,
         Keyword::MAX_ITEMS => Formatters\MaxItemsFormatter::class,
         Keyword::UNIQUE_ITEMS => Formatters\UniqueItemsFormatter::class,
