@@ -59,12 +59,11 @@ $jsonSchema ='{
         },
         "interests": {
             "type": "array",
-            "minItems": 3,
+            "minItems": 50,
             "maxItems": 100,
             "uniqueItems": true,
-            "items": {
-                "type": "string",
-                "maxLength": 120
+            "contains": {
+                "type": "integer"
             }
         },
         "skills": {
@@ -107,7 +106,7 @@ $data = '{
         "address": "Sesame Street, no. 5"
     },
     "available_for_hire": true,
-    "interests": ["php", "html", "css", "javascript", "programming", "web design"],
+    "interests": ["php", "php", "html", "css", "javascript", "programming", "web design"],
     "skills": [
         {
             "name": "HTML",

@@ -26,6 +26,12 @@ class MessageFormatterFactory
         Keyword::MAX_LENGTH => Formatters\MaxLengthFormatter::class,
         Keyword::MIN_LENGTH => Formatters\MinLengthFormatter::class,
         Keyword::PATTERN => Formatters\PatternFormatter::class,
+
+        Keyword::ITEMS => Formatters\ItemsFormatter::class,
+        Keyword::MIN_ITEMS => Formatters\MinItemsFormatter::class,
+        Keyword::MAX_ITEMS => Formatters\MaxItemsFormatter::class,
+        Keyword::UNIQUE_ITEMS => Formatters\UniqueItemsFormatter::class,
+        Keyword::CONTAINS => Formatters\ContainsFormatter::class,
     ];
 
     public function create(ValidationError $error): MessageFormatter

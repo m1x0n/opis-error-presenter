@@ -32,16 +32,16 @@ class ValidationErrorPresenter implements Contracts\ValidationErrorPresenter
         $presented = [];
 
         foreach ($errors as $error) {
-            if (!$error->subErrorsCount()) {
-                $presented[] = $this->presentedErrorFactory->create($error);
-            } else {
+            $presented[] = $this->presentedErrorFactory->create($error);
+
+            if ($error->subErrorsCount()) {
                 $presented[] = $this->present(...$error->subErrors());
             }
         }
 
         return array_reduce($presented, function($carry, $item) {
             return is_array($item)
-                ? array_merge($carry, ...$item)
+                ? array_merge_recursive($carry, $item)
                 : array_merge($carry, [$item]);
         }, []);
     }

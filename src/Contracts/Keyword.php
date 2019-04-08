@@ -24,12 +24,12 @@ interface Keyword
     public const PATTERN = 'pattern';
 
     // Arrays
-    public const ITEMS = 'items';
+    public const ITEMS = 'items'; // WEAK
     public const ADDITIONAL_ITEMS = 'additionalItems';
     public const MAX_ITEMS = 'maxItems';
     public const MIN_ITEMS = 'minItems';
     public const UNIQUE_ITEMS = 'uniqueItems';
-    public const CONTAINS = 'contains';
+    public const CONTAINS = 'contains'; // WEAK
 
     // Objects
     public const MAX_PROPERTIES = 'maxProperties';
