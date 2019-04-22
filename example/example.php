@@ -91,8 +91,9 @@ $jsonSchema ='{
         }
     },
     "required": ["name", "age", "email", "location", 
-                 "available_for_hire", "interests", "skills"],
-    "additionalProperties": false
+                 "available_for_hire", "interests", "skills", "lol"],
+    "additionalProperties": false,
+    "minProperties": 10
 }';
 
 $data = '{
@@ -139,8 +140,10 @@ $presenter = new ValidationErrorPresenter(
         new MessageFormatterFactory(),
         new PointerPresenter()
     )
+    //new \OpisErrorPresenter\Implementation\Strategies\FirstError()
 );
 
 $presented = $presenter->present(...$result->getErrors());
 
 print_r($presented);
+echo json_encode($presented);

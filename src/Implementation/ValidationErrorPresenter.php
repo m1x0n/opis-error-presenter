@@ -6,6 +6,7 @@ namespace OpisErrorPresenter\Implementation;
 
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts;
+use OpisErrorPresenter\Implementation\Strategies\AllErrors;
 
 /**
  * Class ValidationErrorPresenter
@@ -18,9 +19,17 @@ class ValidationErrorPresenter implements Contracts\ValidationErrorPresenter
      */
     private $presentedErrorFactory;
 
-    public function __construct(PresentedValidationErrorFactory $factory)
-    {
+    /**
+     * @var Contracts\PresentStrategy
+     */
+    private $presentStrategy;
+
+    public function __construct(
+        PresentedValidationErrorFactory $factory,
+        ?Contracts\PresentStrategy $presentStrategy = null
+    ) {
         $this->presentedErrorFactory = $factory;
+        $this->presentStrategy = $presentStrategy ?: new AllErrors;
     }
 
     /**
@@ -29,13 +38,20 @@ class ValidationErrorPresenter implements Contracts\ValidationErrorPresenter
      */
     public function present(ValidationError ...$errors): array
     {
+        $collected = $this->collect(...$errors);
+
+        return $this->presentStrategy->execute(...$collected);
+    }
+
+    private function collect(ValidationError ...$errors): array
+    {
         $presented = [];
 
         foreach ($errors as $error) {
             $presented[] = $this->presentedErrorFactory->create($error);
 
             if ($error->subErrorsCount()) {
-                $presented[] = $this->present(...$error->subErrors());
+                $presented[] = $this->collect(...$error->subErrors());
             }
         }
 

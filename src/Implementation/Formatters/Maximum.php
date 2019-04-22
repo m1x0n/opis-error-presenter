@@ -6,17 +6,15 @@ namespace OpisErrorPresenter\Implementation\Formatters;
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts\MessageFormatter;
 
-class EnumFormatter implements MessageFormatter
+class Maximum implements MessageFormatter
 {
-    private const MESSAGE = 'The attribute must be one of the following values: :expected:.';
+    private const MESSAGE = 'The attribute value must be less than or equal :max:.';
 
     public function format(ValidationError $error): string
     {
-        $expected = $error->keywordArgs()['expected'];
+        $max = $error->keywordArgs()['max'];
 
-        $replacements = [
-            ':expected:' => "'" . implode ("', '", $expected) . "'",
-        ];
+        $replacements = [':max:' => $max];
 
         return strtr(self::MESSAGE, $replacements);
     }

@@ -12,37 +12,70 @@ use OpisErrorPresenter\Implementation\Formatters;
 class MessageFormatterFactory
 {
     private const FORMATTERS = [
-        Keyword::TYPE => Formatters\TypeFormatter::class,
-        Keyword::ENUM => Formatters\EnumFormatter::class,
-        Keyword::CONST => Formatters\ConstFormatter::class,
-        Keyword::FORMAT => Formatters\FormatFormatter::class,
+        Keyword::TYPE => Formatters\Type::class,
+        Keyword::ENUM => Formatters\Enum::class,
+        Keyword::CONST => Formatters\Constant::class,
+        Keyword::FORMAT => Formatters\Format::class,
 
-        Keyword::MULTIPLE_OF => Formatters\MultipleOfFormatter::class,
-        Keyword::MAXIMUM => Formatters\MaximumFormatter::class,
-        Keyword::EXCLUSIVE_MAXIMUM => Formatters\ExclusiveMaximumFormatter::class,
-        Keyword::MINIMUM => Formatters\MinimumFormatter::class,
-        Keyword::EXCLUSIVE_MINIMUM => Formatters\ExclusiveMinimumFormatter::class,
+        Keyword::MULTIPLE_OF => Formatters\MultipleOf::class,
+        Keyword::MAXIMUM => Formatters\Maximum::class,
+        Keyword::EXCLUSIVE_MAXIMUM => Formatters\ExclusiveMaximum::class,
+        Keyword::MINIMUM => Formatters\Minimum::class,
+        Keyword::EXCLUSIVE_MINIMUM => Formatters\ExclusiveMinimum::class,
 
-        Keyword::MAX_LENGTH => Formatters\MaxLengthFormatter::class,
-        Keyword::MIN_LENGTH => Formatters\MinLengthFormatter::class,
-        Keyword::PATTERN => Formatters\PatternFormatter::class,
+        Keyword::MAX_LENGTH => Formatters\MaxLength::class,
+        Keyword::MIN_LENGTH => Formatters\MinLength::class,
+        Keyword::PATTERN => Formatters\Pattern::class,
 
-        Keyword::ITEMS => Formatters\ItemsFormatter::class,
-        Keyword::ADDITIONAL_ITEMS => Formatters\AdditionalItemsFormatter::class,
-        Keyword::MIN_ITEMS => Formatters\MinItemsFormatter::class,
-        Keyword::MAX_ITEMS => Formatters\MaxItemsFormatter::class,
-        Keyword::UNIQUE_ITEMS => Formatters\UniqueItemsFormatter::class,
-        Keyword::CONTAINS => Formatters\ContainsFormatter::class,
+        Keyword::ITEMS => Formatters\Items::class,
+        Keyword::ADDITIONAL_ITEMS => Formatters\AdditionalItems::class,
+        Keyword::MIN_ITEMS => Formatters\MinItems::class,
+        Keyword::MAX_ITEMS => Formatters\MaxItems::class,
+        Keyword::UNIQUE_ITEMS => Formatters\UniqueItems::class,
+        Keyword::CONTAINS => Formatters\Contains::class,
+
+        Keyword::MIN_PROPERTIES => Formatters\MinProperties::class,
+        Keyword::MAX_PROPERTIES => Formatters\MaxProperties::class,
+        Keyword::REQUIRED => Formatters\Required::class,
+        Keyword::PROPERTIES => Formatters\Properties::class,
+        Keyword::PATTERN_PROPERTIES => Formatters\PatternProperties::class,
+        Keyword::DEPENDENCIES => Formatters\Dependencies::class,
+        Keyword::PROPERTY_NAMES => Formatters\PropertyNames::class,
+        Keyword::ADDITIONAL_PROPERTIES => Formatters\AdditionalProperties::class,
+
+        Keyword::IF => Formatters\IfKeyword::class,
+        Keyword::THEN => Formatters\ThenFormatter::class,
+        Keyword::ELSE => Formatters\ElseKeyword::class,
+
+        Keyword::ALL_OF => Formatters\AllOf::class,
+        Keyword::ANY_OF => Formatters\AnyOf::class,
+        Keyword::ONE_OF => Formatters\OneOf::class,
+        Keyword::NOT => Formatters\NotKeyword::class,
     ];
+
+    private $customFormatters = [];
 
     public function create(ValidationError $error): MessageFormatter
     {
-        $formatter = self::FORMATTERS[$error->keyword()] ?? null;
+        // Temporary solution
+        $formatter = self::FORMATTERS[$error->keyword()]
+            ?? $this->customFormatters[$error->keyword()]
+            ?? null;
 
         if ($formatter === null) {
-            return new Formatters\DefaultFormatter;
+            return new Formatters\InvalidAttribute;
         }
 
         return new $formatter;
+    }
+
+    /**
+     * TODO: Probably move out of there
+     * @param string $keyword
+     * @param string $className
+     */
+    public function addFormatter(string $keyword, string $className): void
+    {
+        $this->customFormatters[$keyword] = $className;
     }
 }

@@ -7,15 +7,14 @@ namespace OpisErrorPresenter\Implementation\Formatters;
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts\MessageFormatter;
 
-class MinLengthFormatter implements MessageFormatter
+class Format implements MessageFormatter
 {
-    private const MESSAGE = 'The attribute length should be at least :min: characters.';
+    private const MESSAGE = "The attribute should match ':format:' format.";
 
     public function format(ValidationError $error): string
     {
-        $min = $error->keywordArgs()['min'];
-
-        $replacements = [':min:' => $min];
+        $format = $error->keywordArgs()['format'] ?? null;
+        $replacements = $format ? [':format:' => $format] : [];
 
         return strtr(self::MESSAGE, $replacements);
     }

@@ -10,7 +10,7 @@ use OpisErrorPresenter\Contracts;
  * Class PresentedError
  * @package OpisErrorPresenter\Implementation
  */
-class PresentedValidationError implements Contracts\PresentedValidationError
+class PresentedValidationError implements Contracts\PresentedValidationError, \JsonSerializable
 {
     /**
      * @var string
@@ -44,5 +44,10 @@ class PresentedValidationError implements Contracts\PresentedValidationError
             'pointer' => $this->pointer,
             'message' => $this->message,
         ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

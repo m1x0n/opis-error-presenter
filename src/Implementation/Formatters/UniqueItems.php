@@ -7,15 +7,15 @@ namespace OpisErrorPresenter\Implementation\Formatters;
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts\MessageFormatter;
 
-class ExclusiveMaximumFormatter implements MessageFormatter
+class UniqueItems implements MessageFormatter
 {
-    private const MESSAGE = 'The attribute value must be less than :max:.';
+    private const MESSAGE = "The attribute contains duplicated item: ':duplicate:'.";
 
     public function format(ValidationError $error): string
     {
-        $max = $error->keywordArgs()['max'];
+        $duplicate = $error->keywordArgs()['duplicate'];
 
-        $replacements = [':max:' => $max];
+        $replacements = [':duplicate:' => $duplicate];
 
         return strtr(self::MESSAGE, $replacements);
     }

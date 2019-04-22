@@ -7,9 +7,9 @@ namespace OpisErrorPresenter\Implementation\Formatters;
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts\MessageFormatter;
 
-class AdditionalItemsFormatter implements MessageFormatter
+class Items implements MessageFormatter
 {
-    private const MESSAGE = 'The attribute must not contain additional items.';
+    private const MESSAGE = 'The attribute contains invalid items.';
 
     public function format(ValidationError $error): string
     {

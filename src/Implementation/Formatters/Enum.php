@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
@@ -7,15 +6,17 @@ namespace OpisErrorPresenter\Implementation\Formatters;
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts\MessageFormatter;
 
-class UniqueItemsFormatter implements MessageFormatter
+class Enum implements MessageFormatter
 {
-    private const MESSAGE = "The attribute contains duplicated item: ':duplicate:'.";
+    private const MESSAGE = 'The attribute must be one of the following values: :expected:.';
 
     public function format(ValidationError $error): string
     {
-        $duplicate = $error->keywordArgs()['duplicate'];
+        $expected = $error->keywordArgs()['expected'];
 
-        $replacements = [':duplicate:' => $duplicate];
+        $replacements = [
+            ':expected:' => "'" . implode ("', '", $expected) . "'",
+        ];
 
         return strtr(self::MESSAGE, $replacements);
     }

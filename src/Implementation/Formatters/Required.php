@@ -7,15 +7,15 @@ namespace OpisErrorPresenter\Implementation\Formatters;
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts\MessageFormatter;
 
-class MultipleOfFormatter implements MessageFormatter
+class Required implements MessageFormatter
 {
-    private const MESSAGE = 'The attribute value should be multiple of :divisor:.';
+    private const MESSAGE = "The attribute property ':missing:' is required.";
 
     public function format(ValidationError $error): string
     {
-        $divisor = $error->keywordArgs()['divisor'];
+        $missing = $error->keywordArgs()['missing'];
 
-        $replacements = [':divisor:' => $divisor];
+        $replacements = [':missing:' => $missing];
 
         return strtr(self::MESSAGE, $replacements);
     }

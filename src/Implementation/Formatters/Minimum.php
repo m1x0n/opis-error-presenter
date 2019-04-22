@@ -7,15 +7,15 @@ namespace OpisErrorPresenter\Implementation\Formatters;
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts\MessageFormatter;
 
-class MaxLengthFormatter implements MessageFormatter
+class Minimum implements MessageFormatter
 {
-    private const MESSAGE = 'The attribute length may not be greater than :max: characters.';
+    private const MESSAGE = 'The attribute value must be greater than or equal :min:.';
 
     public function format(ValidationError $error): string
     {
-        $max = $error->keywordArgs()['max'];
+        $min = $error->keywordArgs()['min'];
 
-        $replacements = [':max:' => $max];
+        $replacements = [':min:' => $min];
 
         return strtr(self::MESSAGE, $replacements);
     }

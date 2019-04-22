@@ -1,21 +1,23 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts\MessageFormatter;
 
-class MinimumFormatter implements MessageFormatter
+class Constant implements MessageFormatter
 {
-    private const MESSAGE = 'The attribute value must be greater than or equal :min:.';
+    private const MESSAGE = "The attribute value expected to be ':expected:'.";
 
     public function format(ValidationError $error): string
     {
-        $min = $error->keywordArgs()['min'];
+        $expected = $error->keywordArgs()['expected'];
 
-        $replacements = [':min:' => $min];
+        $replacements = [
+            ':expected:' => $expected
+        ];
 
         return strtr(self::MESSAGE, $replacements);
     }

@@ -7,17 +7,17 @@ namespace OpisErrorPresenter\Implementation\Formatters;
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts\MessageFormatter;
 
-class TypeFormatter implements MessageFormatter
+class MaxItems implements MessageFormatter
 {
-    private const MESSAGE = "The attribute expected to be of type ':expected:' but ':used:' given.";
+    private const MESSAGE = 'The attribute may not have more than :max items but :count: given.';
 
     public function format(ValidationError $error): string
     {
         $keywordArgs = $error->keywordArgs();
 
         $replacements = [
-            ':expected:' => $keywordArgs['expected'],
-            ':used:' => $keywordArgs['used'],
+            ':max:' => $keywordArgs['max'],
+            ':count:' => $keywordArgs['count'],
         ];
 
         return strtr(self::MESSAGE, $replacements);
