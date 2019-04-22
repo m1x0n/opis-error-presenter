@@ -9,8 +9,10 @@ use OpisErrorPresenter\Contracts\MessageFormatter;
 
 class AdditionalProperties implements MessageFormatter
 {
+    private const MESSAGE = 'The attribute must not contain additional properties.';
+
     public function format(ValidationError $error): string
     {
-
+        return self::MESSAGE;
     }
 }

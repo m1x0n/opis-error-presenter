@@ -9,8 +9,10 @@ use OpisErrorPresenter\Contracts\MessageFormatter;
 
 class NotKeyword implements MessageFormatter
 {
+    private const MESSAGE = 'The attribute is invalid.';
+
     public function format(ValidationError $error): string
     {
-
+        return self::MESSAGE;
     }
 }

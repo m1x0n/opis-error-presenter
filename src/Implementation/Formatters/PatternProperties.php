@@ -9,8 +9,10 @@ use OpisErrorPresenter\Contracts\MessageFormatter;
 
 class PatternProperties implements MessageFormatter
 {
+    private const MESSAGE = 'The attribute has invalid format.';
+
     public function format(ValidationError $error): string
     {
-
+        return self::MESSAGE;
     }
 }

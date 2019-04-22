@@ -9,8 +9,10 @@ use OpisErrorPresenter\Contracts\MessageFormatter;
 
 class OneOf implements MessageFormatter
 {
+    private const MESSAGE = 'The attribute must match exactly one of the subschemas.';
+
     public function format(ValidationError $error): string
     {
-
+        return self::MESSAGE;
     }
 }

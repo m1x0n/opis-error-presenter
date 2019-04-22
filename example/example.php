@@ -30,10 +30,12 @@ $jsonSchema ='{
             "const": "test"
         },
         "email": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 3,
-            "format": "email"
+            "allOf": [
+                { "type": "string" },
+                { "maxLength": 128 },
+                { "minLength": 3 },
+                { "format": "email" }
+            ]
         },
         "website": {
             "type": ["string", "null"],
@@ -52,10 +54,16 @@ $jsonSchema ='{
                  }
             },
             "required": ["country", "address"],
-            "additionalProperties": false
+            "additionalProperties": true,
+            "propertyNames": {
+                "pattern": "^[a-z]*$"
+            },
+            "patternProperties": {
+                "^M_": { "type": "integer" }
+            }
         },
         "available_for_hire": {
-            "type": "boolean"
+            "not": { "type": "string" }
         },
         "interests": {
             "type": "array",
@@ -83,14 +91,23 @@ $jsonSchema ='{
                         "minimum": 0,
                         "maximum": 100,
                         "multipleOf": 0.25
+                    },
+                    "years": {
+                        "type": "integer"
+                    },
+                    "test": {
+                        "type": "boolean"
                     }
                 },
-                "required": ["name", "value"],
-                "additionalProperties": false
+                "required": ["name"],
+                "additionalProperties": true,
+                "dependencies": {
+                    "years": ["value", "test"]
+                }
             }
         }
     },
-    "required": ["name", "age", "email", "location", 
+    "required": ["name", "age", "email", "location",
                  "available_for_hire", "interests", "skills", "lol"],
     "additionalProperties": false,
     "minProperties": 10
@@ -104,9 +121,11 @@ $data = '{
     "website": null,
     "location": {
         "country": "UA",
-        "address": "Sesame Street, no. 5"
+        "address": "Sesame Street, no. 5",
+        "Province": "Country Yard",
+        "M_0": "29"
     },
-    "available_for_hire": true,
+    "available_for_hire": "true",
     "interests": ["php", "php", "html", "css", "javascript", "programming", "web design"],
     "skills": [
         {
@@ -115,7 +134,7 @@ $data = '{
         },
         {
             "name": "PHP",
-            "value": 55
+            "years": 100
         },
         {
             "name": "CSS",

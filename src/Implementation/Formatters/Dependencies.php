@@ -9,8 +9,14 @@ use OpisErrorPresenter\Contracts\MessageFormatter;
 
 class Dependencies implements MessageFormatter
 {
+    private const MESSAGE = "The attribute property ':missing:' is required.";
+
     public function format(ValidationError $error): string
     {
+        $missing = $error->keywordArgs()['missing'];
 
+        $replacements = [':missing:' => $missing];
+
+        return strtr(self::MESSAGE, $replacements);
     }
 }
