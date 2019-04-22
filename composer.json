@@ -1,5 +1,5 @@
 {
-    "name": "m1x0n/opis-error-presenter",
+    "name": "m1x0n/opis-json-schema-error-presenter",
     "description": "JSON schema error presenter for opis library",
     "type": "library",
     "license": "GPL",
@@ -11,6 +11,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
         "opis/json-schema": "^1.0"
     },
     "require-dev": {

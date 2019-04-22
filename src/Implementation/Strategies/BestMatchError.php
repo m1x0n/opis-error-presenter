@@ -11,5 +11,6 @@ class BestMatchError implements PresentStrategy
     public function execute(PresentedValidationError ...$errors): array
     {
         //TODO: implement best match algorithm by excluding weak validators
+        https://github.com/Julian/jsonschema/blob/master/jsonschema/exceptions.py#L291
     }
 }
