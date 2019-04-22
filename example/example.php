@@ -132,9 +132,11 @@ $data = json_decode($data);
 $jsonSchema = Schema::fromJsonString($jsonSchema);
 $validator = new Validator();
 
+// Get all errors. Yeah -1 here.
 /** @var ValidationResult $result */
 $result = $validator->schemaValidation($data, $jsonSchema, -1);
 
+// Default strategy is all error
 $presenter = new ValidationErrorPresenter(
     new PresentedValidationErrorFactory(
         new MessageFormatterFactory(),
@@ -145,5 +147,8 @@ $presenter = new ValidationErrorPresenter(
 
 $presented = $presenter->present(...$result->getErrors());
 
+// Inspected presenter error
 print_r($presented);
+
+// Json-serializable
 echo json_encode($presented);
