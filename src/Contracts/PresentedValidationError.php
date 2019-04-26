@@ -8,5 +8,6 @@ interface PresentedValidationError
 {
     public function message(): string;
     public function pointer(): string;
+    public function keyword(): string;
     public function toArray(): array;
 }

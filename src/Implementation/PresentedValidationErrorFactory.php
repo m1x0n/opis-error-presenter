@@ -28,6 +28,8 @@ class PresentedValidationErrorFactory
 
         $pointer = $this->pointerPresenter->present($error->dataPointer());
 
-        return new PresentedValidationError($pointer, $message);
+        $keyword = $error->keyword();
+
+        return new PresentedValidationError($keyword, $pointer, $message);
     }
 }
