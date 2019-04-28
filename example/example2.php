@@ -1,24 +1,5 @@
-opis-json-schema-error-presenter
-=====
+<?php
 
-Customizable error presenter for json schema validation errors produced
-by [opis/json-schema](https://github.com/opis/json-schema) library: [JSON schema](http://json-schema.org/) implementation.
-
-In other words it's a raw attempt to represent `Opis\JsonSchema\ValidationError` collection in
-human readable way.
-
-### Requirements
-- php >= 7.1
-- opis/json-schema
-
-### Installation
-
-```bash
-composer require m1x0n/opis-json-schema-error-presenter
-```
-
-### Usage example
-```php7
 use Opis\JsonSchema\Schema;
 use Opis\JsonSchema\ValidationResult;
 use Opis\JsonSchema\Validator;
@@ -96,50 +77,3 @@ print_r(array_map(static function (PresentedValidationError $error) {
 
 // Json-serializable
 echo json_encode($presented);
-```
-
-### Output result example
-```
-Array
-(
-    [0] => Array
-        (
-            [keyword] => type
-            [pointer] => productId
-            [message] => The attribute expected to be of type 'integer' but 'string' given.
-        )
-
-    [1] => Array
-        (
-            [keyword] => minLength
-            [pointer] => productName
-            [message] => The attribute length should be at least 3 characters.
-        )
-
-    [2] => Array
-        (
-            [keyword] => enum
-            [pointer] => price/currency
-            [message] => The attribute must be one of the following values: 'USD', 'EUR', 'BTC'.
-        )
-
-)
-```
-
-### Presenting Strategies
-- `AllErrors` - shows all available presented errors
-- `FirstError` - picks the first of the presented errors
-- `BestMatchError` - evaluates best matching error
-
-In order to specify strategy simply pass selected one to
-`PresentedValidationErrorFactory`, e.g:
-
-```php
-$presenter = new ValidationErrorPresenter(
-    new PresentedValidationErrorFactory(
-        new MessageFormatterFactory(
-            new BestMatchError()
-        )
-    )
-);
-```

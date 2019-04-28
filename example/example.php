@@ -3,6 +3,7 @@
 use Opis\JsonSchema\Schema;
 use Opis\JsonSchema\ValidationResult;
 use Opis\JsonSchema\Validator;
+use OpisErrorPresenter\Contracts\PresentedValidationError;
 use OpisErrorPresenter\Implementation\MessageFormatterFactory;
 use OpisErrorPresenter\Implementation\PresentedValidationErrorFactory;
 use OpisErrorPresenter\Implementation\ValidationErrorPresenter;
@@ -158,14 +159,15 @@ $result = $validator->schemaValidation($data, $jsonSchema, -1);
 $presenter = new ValidationErrorPresenter(
     new PresentedValidationErrorFactory(
         new MessageFormatterFactory()
-    ),
-    new \OpisErrorPresenter\Implementation\Strategies\BestMatchError()
+    )
 );
 
 $presented = $presenter->present(...$result->getErrors());
 
 // Inspected presenter error
-print_r($presented);
+print_r(array_map(static function (PresentedValidationError $error) {
+    return $error->toArray();
+}, $presented));
 
 // Json-serializable
 echo json_encode($presented);
