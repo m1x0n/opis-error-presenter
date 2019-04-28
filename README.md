@@ -1,4 +1,4 @@
-opis-json-schema-error-presenter
+opis-json-schema-error-presenter [![Build Status](https://travis-ci.org/m1x0n/opis-error-presenter.svg?branch=master)](https://travis-ci.org/m1x0n/opis-error-presenter)
 =====
 
 Customizable error presenter for json schema validation errors produced
