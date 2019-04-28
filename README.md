@@ -18,7 +18,7 @@ composer require m1x0n/opis-json-schema-error-presenter
 ```
 
 ### Usage example
-```php7
+```php
 use Opis\JsonSchema\Schema;
 use Opis\JsonSchema\ValidationResult;
 use Opis\JsonSchema\Validator;
