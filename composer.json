@@ -2,7 +2,7 @@
     "name": "m1x0n/opis-json-schema-error-presenter",
     "description": "JSON schema error presenter for opis library",
     "type": "library",
-    "license": "GPL",
+    "license": "MIT",
     "authors": [
         {
             "name": "m1x0n",
