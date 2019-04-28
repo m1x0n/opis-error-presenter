@@ -18,7 +18,7 @@ class PresentedValidationError implements Contracts\PresentedValidationError, \J
     private $keyword;
 
     /**
-     * @var string
+     * @var array
      */
     private $pointer;
 
@@ -27,8 +27,11 @@ class PresentedValidationError implements Contracts\PresentedValidationError, \J
      */
     private $message;
 
-    public function __construct(string $keyword, string $pointer, string $message)
-    {
+    public function __construct(
+        string $keyword,
+        array $pointer,
+        string $message
+    ) {
         $this->keyword = $keyword;
         $this->pointer = $pointer;
         $this->message = $message;
@@ -44,16 +47,21 @@ class PresentedValidationError implements Contracts\PresentedValidationError, \J
         return $this->message;
     }
 
-    public function pointer(): string
+    public function pointer(): array
     {
         return $this->pointer;
+    }
+
+    public function pointerPath(string $delimiter = Contracts\PresentedValidationError::POINTER_DELIMITER): string
+    {
+        return implode($delimiter, $this->pointer);
     }
 
     public function toArray(): array
     {
         return [
             'keyword' => $this->keyword,
-            'pointer' => $this->pointer,
+            'pointer' => $this->pointerPath(),
             'message' => $this->message,
         ];
     }

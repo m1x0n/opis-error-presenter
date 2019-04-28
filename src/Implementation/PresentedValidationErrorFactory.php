@@ -9,15 +9,15 @@ use OpisErrorPresenter\Contracts;
 
 class PresentedValidationErrorFactory
 {
+    /**
+     * @var MessageFormatterFactory
+     */
     private $messageFormatterFactory;
-    private $pointerPresenter;
 
     public function __construct(
-        MessageFormatterFactory $messageFormatterFactory,
-        PointerPresenter $pointerPresenter
+        MessageFormatterFactory $messageFormatterFactory
     ) {
         $this->messageFormatterFactory = $messageFormatterFactory;
-        $this->pointerPresenter = $pointerPresenter;
     }
 
     public function create(ValidationError $error): Contracts\PresentedValidationError
@@ -26,9 +26,8 @@ class PresentedValidationErrorFactory
             ->create($error)
             ->format($error);
 
-        $pointer = $this->pointerPresenter->present($error->dataPointer());
-
         $keyword = $error->keyword();
+        $pointer = $error->dataPointer();
 
         return new PresentedValidationError($keyword, $pointer, $message);
     }

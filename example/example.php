@@ -4,7 +4,6 @@ use Opis\JsonSchema\Schema;
 use Opis\JsonSchema\ValidationResult;
 use Opis\JsonSchema\Validator;
 use OpisErrorPresenter\Implementation\MessageFormatterFactory;
-use OpisErrorPresenter\Implementation\PointerPresenter;
 use OpisErrorPresenter\Implementation\PresentedValidationErrorFactory;
 use OpisErrorPresenter\Implementation\ValidationErrorPresenter;
 
@@ -155,13 +154,12 @@ $validator = new Validator();
 /** @var ValidationResult $result */
 $result = $validator->schemaValidation($data, $jsonSchema, -1);
 
-// Default strategy is all error
+// Default strategy is AllErrors
 $presenter = new ValidationErrorPresenter(
     new PresentedValidationErrorFactory(
-        new MessageFormatterFactory(),
-        new PointerPresenter()
-    )
-    //new \OpisErrorPresenter\Implementation\Strategies\FirstError()
+        new MessageFormatterFactory()
+    ),
+    new \OpisErrorPresenter\Implementation\Strategies\BestMatchError()
 );
 
 $presented = $presenter->present(...$result->getErrors());

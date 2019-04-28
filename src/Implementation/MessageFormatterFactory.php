@@ -37,7 +37,6 @@ class MessageFormatterFactory
         Keyword::DEPENDENCIES => Formatters\Dependencies::class,
         Keyword::PROPERTY_NAMES => Formatters\PropertyNames::class,
         Keyword::ADDITIONAL_PROPERTIES => Formatters\AdditionalProperties::class,
-        Keyword::IF => Formatters\IfKeyword::class,
         Keyword::THEN => Formatters\ThenFormatter::class,
         Keyword::ELSE => Formatters\ElseKeyword::class,
         Keyword::ALL_OF => Formatters\AllOf::class,
