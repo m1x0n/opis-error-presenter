@@ -3,7 +3,7 @@ sudo: false
 
 php:
   - 7.1
-  - 7.1
+  - 7.2
   - 7.3
 
 before_install:
@@ -13,6 +13,7 @@ install:
   - travis_retry composer install --no-interaction --prefer-dist
 
 script:
+  - vendor/bin/phpstan analyse -l 4 src
   - vendor/bin/phpunit
 
 cache:
