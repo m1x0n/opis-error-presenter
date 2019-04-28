@@ -16,7 +16,9 @@
         "opis/json-schema": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.1@dev"
+        "opis/json-schema": "^1.0",
+        "phpunit/phpunit": "^8.1@dev",
+        "dg/bypass-finals": "^1.1"
     },
     "autoload": {
         "psr-4": {
