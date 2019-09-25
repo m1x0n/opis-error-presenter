@@ -4,22 +4,17 @@ declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class MinItems implements MessageFormatter
+class MinItems extends Formatter
 {
-    private const MESSAGE = 'The attribute must have at least :min: items but :count: given.';
+    public const MESSAGE = 'The attribute must have at least :min: items but :count: given.';
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $keywordArgs = $error->keywordArgs();
+        $keywordArgs = $this->error->keywordArgs();
 
-        $replacements = [
+        return [
             ':min:' => $keywordArgs['min'],
             ':count:' => $keywordArgs['count'],
         ];
-
-        return strtr(self::MESSAGE, $replacements);
     }
 }

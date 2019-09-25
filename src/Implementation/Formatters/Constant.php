@@ -1,24 +1,16 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class Constant implements MessageFormatter
+class Constant extends Formatter
 {
-    private const MESSAGE = "The attribute value expected to be ':expected:'.";
+    public const MESSAGE = "The attribute value expected to be ':expected:'.";
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $expected = $error->keywordArgs()['expected'];
-
-        $replacements = [
-            ':expected:' => $expected
+        return [
+            ':expected:' => $this->error->keywordArgs()['expected']
         ];
-
-        return strtr(self::MESSAGE, $replacements);
     }
 }

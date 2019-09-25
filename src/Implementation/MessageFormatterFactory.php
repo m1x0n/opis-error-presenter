@@ -55,10 +55,10 @@ class MessageFormatterFactory
             ?? null;
 
         if ($formatter === null) {
-            return new Formatters\InvalidAttribute;
+            return new Formatters\InvalidAttribute($error);
         }
 
-        return new $formatter;
+        return new $formatter($error);
     }
 
     /**

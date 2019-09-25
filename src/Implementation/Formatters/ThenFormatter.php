@@ -4,15 +4,7 @@ declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class ThenFormatter implements MessageFormatter
+class ThenFormatter extends Formatter
 {
-    private const MESSAGE = "The attribute does not match schema for 'then'.";
-
-    public function format(ValidationError $error): string
-    {
-        return self::MESSAGE;
-    }
+    public const MESSAGE = "The attribute does not match schema for 'then'.";
 }

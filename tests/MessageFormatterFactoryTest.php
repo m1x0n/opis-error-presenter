@@ -13,7 +13,7 @@ class MessageFormatterFactoryTest extends TestCase
 {
     public function testShouldCreateMessageFormatter(): void
     {
-        $factory = new MessageFormatterFactory;
+        $factory = new MessageFormatterFactory();
 
         $error = $this->createMock(ValidationError::class);
         $error->method('keyword')->willReturn(Keyword::REQUIRED);
@@ -26,7 +26,7 @@ class MessageFormatterFactoryTest extends TestCase
 
     public function testShouldCreateDefaultMessageFormatter(): void
     {
-        $factory = new MessageFormatterFactory;
+        $factory = new MessageFormatterFactory();
 
         $error = $this->createMock(ValidationError::class);
         $error->method('keyword')->willReturn('test');

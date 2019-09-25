@@ -60,7 +60,7 @@ interface Keyword
         self::CONTAINS,
         self::PATTERN_PROPERTIES,
         self::ALL_OF,
-        self::ANY_OF.
+        self::ANY_OF ,
         self::ONE_OF,
         self::NOT,
     ];

@@ -4,15 +4,7 @@ declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class Pattern implements MessageFormatter
+class Pattern extends Formatter
 {
-    private const MESSAGE = 'The attribute format is invalid.';
-
-    public function format(ValidationError $error): string
-    {
-        return self::MESSAGE;
-    }
+    public const MESSAGE = 'The attribute format is invalid.';
 }

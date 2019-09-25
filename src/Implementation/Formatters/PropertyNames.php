@@ -4,21 +4,14 @@ declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class PropertyNames implements MessageFormatter
+class PropertyNames extends Formatter
 {
-    private const MESSAGE = "The attribute property ':property:' has invalid format.";
+    public const MESSAGE = "The attribute property ':property:' has invalid format.";
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $expected = $error->keywordArgs()['property'];
-
-        $replacements = [
-            ':property:' => $expected
+        return [
+            ':property:' => $this->error->keywordArgs()['property']
         ];
-
-        return strtr(self::MESSAGE, $replacements);
     }
 }

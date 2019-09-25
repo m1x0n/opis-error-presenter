@@ -29,7 +29,7 @@ class ValidationErrorPresenter implements Contracts\ValidationErrorPresenter
         ?Contracts\PresentStrategy $presentStrategy = null
     ) {
         $this->presentedErrorFactory = $factory;
-        $this->presentStrategy = $presentStrategy ?: new AllErrors;
+        $this->presentStrategy = $presentStrategy ?: new AllErrors();
     }
 
     /**
@@ -55,7 +55,7 @@ class ValidationErrorPresenter implements Contracts\ValidationErrorPresenter
             }
         }
 
-        return array_reduce($presented, function($carry, $item) {
+        return array_reduce($presented, function ($carry, $item) {
             return is_array($item)
                 ? array_merge_recursive($carry, $item)
                 : array_merge($carry, [$item]);

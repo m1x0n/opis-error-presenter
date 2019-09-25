@@ -15,7 +15,7 @@ class ValidationErrorPresenterTest extends TestCase
     {
         $presenter = new ValidationErrorPresenter(
             new PresentedValidationErrorFactory(
-                new MessageFormatterFactory
+                new MessageFormatterFactory()
             )
         );
 

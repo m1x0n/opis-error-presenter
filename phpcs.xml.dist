@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<ruleset name="Opis Error Presenter">
+    <description>Opis Error Presenter Rules</description>
+
+    <rule ref="PSR12"/>
+
+    <file>./src</file>
+    <file>./tests</file>
+</ruleset>

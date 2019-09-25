@@ -1,22 +1,16 @@
 <?php
-
 declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class Minimum implements MessageFormatter
+class Minimum extends Formatter
 {
-    private const MESSAGE = 'The attribute value must be greater than or equal :min:.';
+    public const MESSAGE = 'The attribute value must be greater than or equal :min:.';
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $min = $error->keywordArgs()['min'];
-
-        $replacements = [':min:' => $min];
-
-        return strtr(self::MESSAGE, $replacements);
+        return [
+            ':min:' => $this->error->keywordArgs()['min']
+        ];
     }
 }

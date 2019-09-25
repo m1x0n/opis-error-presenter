@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class Type implements MessageFormatter
+class Type extends Formatter
 {
-    private const MESSAGE = "The attribute expected to be of type ':expected:' but ':used:' given.";
+    public const MESSAGE = "The attribute expected to be of type ':expected:' but ':used:' given.";
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $keywordArgs = $error->keywordArgs();
+        $keywordArgs = $this->error->keywordArgs();
+        $expected = (array)$keywordArgs['expected'];
 
-        $replacements = [
-            ':expected:' => $keywordArgs['expected'],
+        return [
+            ':expected:' => implode(', ', array_map(
+                    function ($item) {
+                        return "'{$item}'";
+                    }, $expected)
+            ),
             ':used:' => $keywordArgs['used'],
         ];
-
-        return strtr(self::MESSAGE, $replacements);
     }
 }
