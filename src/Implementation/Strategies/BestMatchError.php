@@ -23,7 +23,7 @@ class BestMatchError implements PresentStrategy
             PresentedValidationError $a,
             PresentedValidationError $b
         ) {
-            return count($a->pointer()) <=> count($b->pointer());
+            return count($b->pointer()) <=> count($a->pointer());
         });
 
         foreach ($errors as $error) {
