@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
@@ -14,10 +15,11 @@ class Enum extends Formatter
 
         return [
             ':expected:' => implode(', ', array_map(
-                    function ($item) {
+                function ($item) {
                         return "'{$item}'";
-                    }, $expected)
-            ),
+                },
+                $expected
+            )),
         ];
     }
 }
