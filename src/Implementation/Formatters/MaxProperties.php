@@ -4,22 +4,17 @@ declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class MaxProperties implements MessageFormatter
+class MaxProperties extends Formatter
 {
-    private const MESSAGE = 'The attribute may not have more than :max properties but :count: given.';
+    public const MESSAGE = 'The attribute may not have more than :max properties but :count: given.';
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $keywordArgs = $error->keywordArgs();
+        $keywordArgs = $this->error->keywordArgs();
 
-        $replacements = [
+        return [
             ':max:' => $keywordArgs['max'],
             ':count:' => $keywordArgs['count'],
         ];
-
-        return strtr(self::MESSAGE, $replacements);
     }
 }

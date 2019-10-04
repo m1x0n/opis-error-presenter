@@ -4,18 +4,14 @@ declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class Format implements MessageFormatter
+class Format extends Formatter
 {
-    private const MESSAGE = "The attribute should match ':format:' format.";
+    public const MESSAGE = "The attribute should match ':format:' format.";
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $format = $error->keywordArgs()['format'] ?? null;
-        $replacements = $format ? [':format:' => $format] : [];
+        $format = $this->error->keywordArgs()['format'] ?? null;
 
-        return strtr(self::MESSAGE, $replacements);
+        return $format ? [':format:' => $format] : [];
     }
 }

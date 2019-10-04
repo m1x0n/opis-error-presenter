@@ -6,6 +6,7 @@ namespace OpisErrorPresenter\Implementation;
 
 use Opis\JsonSchema\ValidationError;
 use OpisErrorPresenter\Contracts;
+use OpisErrorPresenter\Implementation\Translators\DefaultTranslator;
 
 class PresentedValidationErrorFactory
 {
@@ -14,20 +15,30 @@ class PresentedValidationErrorFactory
      */
     private $messageFormatterFactory;
 
+    /**
+     * @var Contracts\MessageTranslator
+     */
+    private $messageTranslator;
+
     public function __construct(
-        MessageFormatterFactory $messageFormatterFactory
+        MessageFormatterFactory $messageFormatterFactory,
+        ?Contracts\MessageTranslator $messageTranslator = null
     ) {
         $this->messageFormatterFactory = $messageFormatterFactory;
+        $this->messageTranslator = $messageTranslator ?: new DefaultTranslator();
     }
 
     public function create(ValidationError $error): Contracts\PresentedValidationError
     {
-        $message = $this->messageFormatterFactory
-            ->create($error)
-            ->format($error);
+        $formatter = $this->messageFormatterFactory->create($error);
 
         $keyword = $error->keyword();
         $pointer = $error->dataPointer();
+
+        $message = $this->messageTranslator->translate(
+            $formatter->keyword(),
+            $formatter->replacements()
+        );
 
         return new PresentedValidationError($keyword, $pointer, $message);
     }

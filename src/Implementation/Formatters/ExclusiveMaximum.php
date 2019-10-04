@@ -4,19 +4,14 @@ declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class ExclusiveMaximum implements MessageFormatter
+class ExclusiveMaximum extends Formatter
 {
-    private const MESSAGE = 'The attribute value must be less than :max:.';
+    public const MESSAGE = 'The attribute value must be less than :max:.';
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $max = $error->keywordArgs()['max'];
-
-        $replacements = [':max:' => $max];
-
-        return strtr(self::MESSAGE, $replacements);
+        return [
+            ':max:' => $this->error->keywordArgs()['max']
+        ];
     }
 }

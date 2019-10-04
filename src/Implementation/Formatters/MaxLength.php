@@ -4,19 +4,14 @@ declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class MaxLength implements MessageFormatter
+class MaxLength extends Formatter
 {
-    private const MESSAGE = 'The attribute length may not be greater than :max: characters.';
+    public const MESSAGE = 'The attribute length may not be greater than :max: characters.';
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $max = $error->keywordArgs()['max'];
-
-        $replacements = [':max:' => $max];
-
-        return strtr(self::MESSAGE, $replacements);
+        return [
+            ':max:' => $this->error->keywordArgs()['max']
+        ];
     }
 }

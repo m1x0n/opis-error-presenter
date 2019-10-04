@@ -1,23 +1,25 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class Enum implements MessageFormatter
+class Enum extends Formatter
 {
-    private const MESSAGE = 'The attribute must be one of the following values: :expected:.';
+    public const MESSAGE = 'The attribute must be one of the following values: :expected:.';
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $expected = $error->keywordArgs()['expected'];
+        $keywordArgs = $this->error->keywordArgs();
+        $expected = (array)$keywordArgs['expected'];
 
-        $replacements = [
-            ':expected:' => "'" . implode ("', '", $expected) . "'",
+        return [
+            ':expected:' => implode(', ', array_map(
+                function ($item) {
+                        return "'{$item}'";
+                },
+                $expected
+            )),
         ];
-
-        return strtr(self::MESSAGE, $replacements);
     }
 }

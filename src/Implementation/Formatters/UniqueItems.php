@@ -4,19 +4,14 @@ declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Formatters;
 
-use Opis\JsonSchema\ValidationError;
-use OpisErrorPresenter\Contracts\MessageFormatter;
-
-class UniqueItems implements MessageFormatter
+class UniqueItems extends Formatter
 {
-    private const MESSAGE = "The attribute contains duplicated item: ':duplicate:'.";
+    public const MESSAGE = "The attribute contains duplicated item: ':duplicate:'.";
 
-    public function format(ValidationError $error): string
+    public function replacements(): array
     {
-        $duplicate = $error->keywordArgs()['duplicate'];
-
-        $replacements = [':duplicate:' => $duplicate];
-
-        return strtr(self::MESSAGE, $replacements);
+        return [
+            ':duplicate:' => $this->error->keywordArgs()['duplicate']
+        ];
     }
 }

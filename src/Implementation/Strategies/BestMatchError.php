@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpisErrorPresenter\Implementation\Strategies;
@@ -20,9 +21,10 @@ class BestMatchError implements PresentStrategy
     public function execute(PresentedValidationError ...$errors): array
     {
         uasort($errors, static function (
-            PresentedValidationError $a, PresentedValidationError $b
+            PresentedValidationError $a,
+            PresentedValidationError $b
         ) {
-            return count($a->pointer()) <=> count($b->pointer());
+            return count($b->pointer()) <=> count($a->pointer());
         });
 
         foreach ($errors as $error) {

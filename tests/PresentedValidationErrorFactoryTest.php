@@ -14,7 +14,7 @@ class PresentedValidationErrorFactoryTest extends TestCase
     public function testShouldCreatePresentedValidationError(): void
     {
         $factory = new PresentedValidationErrorFactory(
-            new MessageFormatterFactory
+            new MessageFormatterFactory()
         );
 
         $error = $this->createMock(ValidationError::class);
