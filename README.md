@@ -143,3 +143,111 @@ $presenter = new ValidationErrorPresenter(
     )
 );
 ```
+
+### Custom translations
+There is a possibility to have custom translations.
+Currently there is only `DefaultTranslator` which exposes some generic messages like:
+
+`The attribute length should be at least 3 characters`
+
+In order to replace or extend or come up with new translations `MessageTranslator` interface
+must be implemented.
+For example:
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace Acme;
+
+use OpisErrorPresenter\Contracts\Keyword;
+use OpisErrorPresenter\Implementation\MessageFormatterFactory;
+use OpisErrorPresenter\Implementation\PresentedValidationErrorFactory;
+use OpisErrorPresenter\Implementation\Translators\DefaultTranslator;
+use OpisErrorPresenter\Implementation\ValidationErrorPresenter;
+
+class InternationalTranslator extends DefaultTranslator
+{
+    private const DEFAULT_LOCALE = 'en_US';
+
+    private $messages = [];
+
+    private const DEFAULT_MESSAGE = 'The attribute is invalid';
+
+    public function __construct()
+    {
+        $this->loadMessages();
+    }
+
+    public function translate(string $key, array $replacements = [], $locale = null): string
+    {
+        if ($locale && array_key_exists($locale, $this->messages)) {
+            $message = $this->messages[$locale][$key] ?? self::DEFAULT_MESSAGE;
+            return strtr($message, $replacements);
+        }
+
+        // Fallback on default locale
+        return parent::translate($key, $replacements, $locale);
+    }
+
+    private function loadMessages(): void
+    {
+        /*
+            Locales structure example:
+            [
+               'locale_1' => [
+                  'keyword' => 'translation_1'
+                  ...
+               ],
+               'locale_2' => [
+                  'keyword' => 'translation_2'
+                  ...
+               ],
+               ...
+            ]
+        */
+        $this->messages = [
+            'de_DE' => [
+                // The rest of other keywords ...
+                Keyword::MIN_LENGTH => 'Die Attributlänge sollte mindestens betragen: min: Zeichen.'
+                // ...
+            ],
+            'ru_RU' => [
+                // ...
+                Keyword::ENUM => 'Длина атрибута должна быть минимум :min: символов.'
+                // ....
+            ]
+        ];
+    }
+}
+```
+Then configure presenter:
+```php
+$presenter = new ValidationErrorPresenter(
+    new PresentedValidationErrorFactory(
+        new MessageFormatterFactory(),
+        new InternationalTranslator()
+    )
+);
+```
+
+### Locale resolving
+For better experience with different localizations custom translator could be used
+alongside with automatic locale resolution.
+
+Currently next locale resolvers are implemented:
+- `NullLocaleResolver` as fallback to generic messages.
+- `HttpLocaleResolver` tries to detect locale based on `HTTP_ACCEPT_LANGUAGE` header and requires `ext-intl` to be installed.
+
+It's also possible to implement custom locale resolver by implementing `LocaleResolver` interface.
+
+To set up `HttpLocaleResolver` or custom-crafted one:
+```php
+$presenter = new ValidationErrorPresenter(
+    new PresentedValidationErrorFactory(
+        new MessageFormatterFactory(),
+        new InternationalTranslator(),
+        new HttpLocaleResolver()
+    )
+);
+```
