@@ -168,14 +168,13 @@ use OpisErrorPresenter\Implementation\ValidationErrorPresenter;
 
 class InternationalTranslator extends DefaultTranslator
 {
-    private const DEFAULT_LOCALE = 'en_US';
-
-    private $messages = [];
+    protected $messages = [];
 
     private const DEFAULT_MESSAGE = 'The attribute is invalid';
 
     public function __construct()
     {
+        parent::__construct();
         $this->loadMessages();
     }
 
@@ -220,15 +219,15 @@ class InternationalTranslator extends DefaultTranslator
         ];
     }
 }
-```
-Then configure presenter:
-```php
+
+// Then configure presenter factory
 $presenter = new ValidationErrorPresenter(
     new PresentedValidationErrorFactory(
         new MessageFormatterFactory(),
         new InternationalTranslator()
     )
 );
+
 ```
 
 ### Locale resolving
@@ -251,3 +250,25 @@ $presenter = new ValidationErrorPresenter(
     )
 );
 ```
+
+### Locale support
+Currently there is a possibility to use locales defined in php arrays
+via `ArrayLocaleLoader`. See `lang/en.php`.
+
+In order to load more languages `ValidationErrorPresenter` might be configured in following way:
+
+```php
+$presenter = new ValidationErrorPresenter(
+    new PresentedValidationErrorFactory(
+        new MessageFormatterFactory(),
+        new DefaultTranslator(
+            (new ArrayLocaleLoader())->addPath('de', '/path_to_lang/lang/de.php')
+        )
+    )
+);
+```
+
+However it's possible to load locale strings from anywhere by implementing
+`LocaleLoader` interface.
+
+All the configurations might be slightly simplified by using DI-container.
