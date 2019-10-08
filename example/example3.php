@@ -11,14 +11,13 @@ use OpisErrorPresenter\Implementation\ValidationErrorPresenter;
 
 class InternationalTranslator extends DefaultTranslator
 {
-    private const DEFAULT_LOCALE = 'en_US';
-
-    private $messages = [];
+    protected $messages = [];
 
     private const DEFAULT_MESSAGE = 'The attribute is invalid';
 
     public function __construct()
     {
+        parent::__construct();
         $this->loadMessages();
     }
 
