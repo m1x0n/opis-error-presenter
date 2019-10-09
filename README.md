@@ -271,4 +271,19 @@ $presenter = new ValidationErrorPresenter(
 However it's possible to load locale strings from anywhere by implementing
 `LocaleLoader` interface.
 
+Also presenter could be configured with single locale.
+For doing that `FixedLocaleResolver` will be helpful.
+For example:
+```php
+$presenter = new ValidationErrorPresenter(
+    new PresentedValidationErrorFactory(
+        new MessageFormatterFactory(),
+        new DefaultTranslator(
+            (new ArrayLocaleLoader())->addPath('cs', '../lang')
+        ),
+        new FixedLocaleResolver('cs')
+    )
+);
+```
+
 All the configurations might be slightly simplified by using DI-container.
