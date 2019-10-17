@@ -10,7 +10,7 @@ class UniqueItems extends Formatter
 
     public function replacements(): array
     {
-    	if (is_string($this->error->keywordArgs()['duplicate'])) {
+        if (is_string($this->error->keywordArgs()['duplicate'])) {
             return [
                 ':duplicate:' => $this->error->keywordArgs()['duplicate']
             ];
