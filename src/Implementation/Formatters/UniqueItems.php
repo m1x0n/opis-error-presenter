@@ -10,8 +10,10 @@ class UniqueItems extends Formatter
 
     public function replacements(): array
     {
+        $duplicate = $this->error->keywordArgs()['duplicate'];
+        $duplicate = json_encode($duplicate);
         return [
-            ':duplicate:' => $this->error->keywordArgs()['duplicate']
+            ':duplicate:' => $duplicate
         ];
     }
 }
