@@ -33,7 +33,7 @@ class ValidationErrorPresenter implements Contracts\ValidationErrorPresenter
     }
 
     /**
-     * @param ValidationError[] ...$errors
+     * @param ValidationError ...$errors
      * @return array
      */
     public function present(ValidationError ...$errors): array
