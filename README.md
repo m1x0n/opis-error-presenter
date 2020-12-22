@@ -137,10 +137,9 @@ In order to specify strategy simply pass selected one to
 ```php
 $presenter = new ValidationErrorPresenter(
     new PresentedValidationErrorFactory(
-        new MessageFormatterFactory(
-            new BestMatchError()
-        )
-    )
+        new MessageFormatterFactory()
+    ),
+    new BestMatchError()
 );
 ```
 
