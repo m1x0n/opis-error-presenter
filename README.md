@@ -1,6 +1,10 @@
 opis-json-schema-error-presenter ![Build Status](https://github.com/m1x0n/opis-error-presenter/workflows/Test/badge.svg)
 =====
 
+### Warning
+⚠️This library might become obsolote since new major version (2.0.0) of [opis/json-schema](https://github.com/opis/json-schema/releases/tag/2.0.0) already supports [Error formating](https://opis.io/json-schema/2.x/php-error-formatter.html).
+
+
 Customizable error presenter for json schema validation errors produced
 by [opis/json-schema](https://github.com/opis/json-schema) library: [JSON schema](http://json-schema.org/) implementation.
 
