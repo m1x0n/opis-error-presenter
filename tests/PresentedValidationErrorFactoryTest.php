@@ -7,6 +7,9 @@ use OpisErrorPresenter\Implementation\MessageFormatterFactory;
 use OpisErrorPresenter\Implementation\PresentedValidationErrorFactory;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \OpisErrorPresenter\Implementation\PresentedValidationErrorFactory
+ */
 class PresentedValidationErrorFactoryTest extends TestCase
 {
     private const EXPECTED_MESSAGE = 'The attribute is invalid';

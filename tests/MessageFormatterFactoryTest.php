@@ -9,6 +9,9 @@ use OpisErrorPresenter\Implementation\Formatters\Required;
 use OpisErrorPresenter\Implementation\MessageFormatterFactory;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \OpisErrorPresenter\Implementation\MessageFormatterFactory
+ */
 class MessageFormatterFactoryTest extends TestCase
 {
     public function testShouldCreateMessageFormatter(): void
