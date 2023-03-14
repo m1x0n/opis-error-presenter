@@ -17,7 +17,7 @@
     },
     "require-dev": {
         "opis/json-schema": "^1.0",
-        "phpunit/phpunit": ">=7.1",
+        "phpunit/phpunit": ">=7.1 <10",
         "dg/bypass-finals": "^1.1",
         "squizlabs/php_codesniffer": "^3.4",
         "phpstan/phpstan": "^1.10"
