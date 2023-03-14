@@ -9,6 +9,9 @@ use OpisErrorPresenter\Implementation\PresentedValidationErrorFactory;
 use OpisErrorPresenter\Implementation\ValidationErrorPresenter;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \OpisErrorPresenter\Implementation\ValidationErrorPresenter
+ */
 class ValidationErrorPresenterTest extends TestCase
 {
     public function testShouldPresentValidationErrors(): void
