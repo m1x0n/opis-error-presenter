@@ -66,6 +66,7 @@ class PresentedValidationError implements Contracts\PresentedValidationError, \J
         ];
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toArray();
